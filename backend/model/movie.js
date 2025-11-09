@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const moviesSchema =  mongoose.Schema({
-    moviesName : {
+    movieName : {
         type : String,
         required  : true
     },
@@ -14,11 +14,23 @@ const moviesSchema =  mongoose.Schema({
         type :String,
         require : true,
     },
-    images : {
+    image : {
         type : String,
+    },
+    releaseDate : {
+        type : Date,
+        default : Date.now,
+        require : true,
+    },
+    language : {
+        type : String,
+        require : true,
+    },
+    likes : {
+        type : mongoose.Schema.Types.ObjectId,
+        ref : "like"
     }
 })
 
-const movie =  mongoose.model("movie",moviesSchema);
+module.exports =  mongoose.model("movie",moviesSchema);
 
-module.exports = movie;

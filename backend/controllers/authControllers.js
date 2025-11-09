@@ -20,8 +20,8 @@ exports.signup = async(req,res)=>{
             password : hashedPassword
         });
         await newUser.save();
-        const token =  jwt.sign({id : newUser._id},"kunal",{expiresIn: "7d"});
-        res.status(200).json({message :"Account created"});
+        const token =  jwt.sign({id : newUser._id},"kunal",{expiresIn: "1d"});
+       res.status(200).json({token,userId : newUser._id, message : "Account created successfully"});
     } catch(error){
         console.log(error)
         res.status(500).json({message : "Internal server error"});
@@ -42,8 +42,8 @@ exports.signin = async(req,res)=>{
         if(!decode){
             return res.status(400).json({message : "Wrong credentials"})
         }
-        const token = jwt.sign({id:userExist._id},"kunal",{expiresIn : "7d"});
-        res.status(200).json({message : "Login successfull"});
+        const token = jwt.sign({id:userExist._id},"kunal",{expiresIn : "1d"});
+        res.status(200).json({token,userId : userExist._id, message : "Signin successfully"});
     } catch(error){
         return res.status(500).json({message : "Internal server error"});
     }
