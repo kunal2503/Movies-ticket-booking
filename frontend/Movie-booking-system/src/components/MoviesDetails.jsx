@@ -54,7 +54,6 @@ const MovieDetails = () => {
 
           {/* Floating Like Button */}
           <div
-            onClick={handleLike}
             className="absolute top-4 right-4 bg-black/40 backdrop-blur-md p-3 rounded-full cursor-pointer hover:bg-black/60 transition duration-300"
           >
             <FaHeart

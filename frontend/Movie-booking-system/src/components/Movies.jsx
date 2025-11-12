@@ -7,6 +7,7 @@ import axiosInstance from "../../axiosInstance";
 
 const Movies = ({ movie }) => {
   const [like,setLike] =  useState(false);
+  const [book,setBook] = useState(false);
   const [likesCount,setLikesCount] = useState(0);
   const userId = localStorage.getItem("userId")
   const navigate =  useNavigate()
@@ -18,6 +19,8 @@ const Movies = ({ movie }) => {
       const response = await axiosInstance.post(`/likes/like-movie/${movie._id}/user/${userId}`,{like : newLikeState});
       console.log(response);
       setLikesCount(response.data.likes);
+      
+      console.log(book)
     } catch(error){
       console.log(error.stack)
       toast.error("Internal server error");
@@ -37,6 +40,15 @@ const Movies = ({ movie }) => {
     }
   }
   
+const handleBooking =  async() =>{
+    try{
+      const response =  await axiosInstance.post("/api/bookings",{movieId : movie._id,userId : userId});
+      setBook(response.data.userBookedMovie)
+    } catch(error){
+      toast.error("Internal server error");
+    }
+}
+
   useEffect(()=>{
     const intervel = setInterval(() => {
       fetchLikesCount();
@@ -62,15 +74,18 @@ const Movies = ({ movie }) => {
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent"></div>
 
         {/* Hover overlay */}
+        { book ? null :
         <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 bg-black/60 backdrop-blur-sm">
           <motion.button
+            onClick={handleBooking}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             className="flex items-center gap-2 bg-pink-600 hover:bg-pink-700 text-white font-semibold px-5 py-2 rounded-full shadow-lg transition"
-          >
+            >
             <FaTicketAlt  /> Book Ticket
           </motion.button>
-        </div>
+        </div> 
+          }
       </div>
 
       {/* Movie Info */}

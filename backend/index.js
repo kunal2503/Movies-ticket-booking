@@ -8,6 +8,7 @@ const authRoutes = require("./routes/authRoutes");
 const moviesRoutes = require("./routes/moviesRoutes");
 const userRoutes =  require("./routes/userRoutes");
 const likeRoutes =  require("./routes/likeRoutes");
+const bookingRoutes =  require("./routes/bookingRoutes");
 const {redisClient, connectRedis} = require("./config/redisClient");
 
 const app = express();
@@ -43,6 +44,7 @@ app.use("/auth",authRoutes);
 app.use("/movies",moviesRoutes);
 app.use("/users",userRoutes);
 app.use("/likes",likeRoutes);
+app.use("/api",bookingRoutes);
 
 
 app.get("/",(req,res)=>{

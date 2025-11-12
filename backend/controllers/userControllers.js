@@ -63,3 +63,7 @@ exports.deleteUser = (req,res) =>{
 
 }
 
+
+exports.userWatchlist = (req,res) =>{
+    
+}
